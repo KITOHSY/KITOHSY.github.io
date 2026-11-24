@@ -249,7 +249,7 @@ function tick(){
 tick();setInterval(tick,1000);
 
 /* 쿠폰 */
-const C0=[['손녀랑 영상통화권','보고 싶을 때 언제든!'],['영화관람권 2매','두 분이 같이 보세요'],['맛집 데이트권','계산은 자식이 합니다']];
+const C0=[['예린이 영상통화 축하메세지','보고 싶을 때 언제든!'],['영화관람권 2매','두 분이 같이 보세요'],['맛집 데이트권','계산은 자식이 합니다']];
 const C=[...C0,...C0];
 $('coupons').innerHTML=C.map((c,i)=>`<button class="cp locked" data-i="${i}" aria-label="쿠폰 ${i+1}"><div class="in"><div class="f">쿠폰 ${i+1}<small>눌러서 뒤집기</small></div><div class="b"><strong>${c[0]}</strong><span>${c[1]}</span><span>유효기간: 평생</span></div></div></button>`).join('');
 let unlocked=false,picked=null;
