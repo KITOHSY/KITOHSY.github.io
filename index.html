@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>결혼 41주년 축하해요</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Gaegu:wght@700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: 장난스럽고 따뜻한 가족 잔치
+   IDEA: 전통 혼례상의 나무 원앙 한 쌍 + 동네 잔칫집 오락판
+   PICTURE: 서로 마주 본 나무 원앙, 누르면 다가가 하트가 터짐
+   COLOUR and TYPE: 진홍 바탕, 분홍 보조, 노랑 포인트 / Black Han Sans 제목, Gowun Dodum 본문, Gaegu 손글씨
+   LAYOUT: 원앙 히어로 → 함께한 시간 → 하트 잡기 → 효도 쿠폰 → 마지막 축하 */
+:root{color-scheme:light dark;
+--bg:light-dark(#fff1ef,#1d0910);--card:light-dark(#ffffff,#2c1018);--ink:light-dark(#2a0a12,#ffe9ec);
+--soft:light-dark(#7a3b48,#e7aab6);--line:light-dark(#f3c9cf,#4a1a26);
+--red:#c4122f;--red2:#8f0b22;--pink:#ff8fab;--gold:#ffd23f}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;word-break:keep-all;background:var(--bg);color:var(--ink);font:20px/1.65 "Gowun Dodum",system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(32px,5vw,64px) max(5vw,16px)}
+.wrap{max-width:760px;margin:0 auto}
+h1,h2{font-family:"Black Han Sans",sans-serif;font-weight:400;line-height:1.1;text-wrap:balance;margin:0 0 12px}
+h2{font-size:clamp(32px,8vw,44px);color:var(--red)}
+:root[data-theme=dark] h2{color:var(--pink)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) h2{color:var(--pink)}}
+.lead{color:var(--soft);margin:0 0 22px;font-size:21px}
+.hand{font-family:"Gaegu",cursive;font-weight:700}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* hero */
+.hero{background:radial-gradient(120% 80% at 50% 0%,#e3263f 0%,var(--red) 45%,var(--red2) 100%);color:#fff;text-align:center;position:relative;overflow:hidden}
+.hero .kick{display:inline-block;background:var(--gold);color:var(--red2);border-radius:99px;padding:6px 16px;font-size:18px;margin-bottom:14px}
+.hero h1{font-size:clamp(40px,10vw,72px);margin-bottom:6px}
+.hero h1 .amp{color:var(--gold)}
+.hero .names{font-size:clamp(28px,7.5vw,38px);font-family:"Black Han Sans";letter-spacing:.02em}
+.hero .date{opacity:.9;margin-top:4px}
+.stage{position:relative;max-width:520px;height:clamp(180px,42vw,230px);margin:6px auto 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.duck{transition:transform .7s cubic-bezier(.3,1.6,.5,1)}
+.stage.close .dl{transform:translateX(34px) rotate(-4deg)}
+.stage.close .dr{transform:translateX(-34px) rotate(4deg)}
+.tap{cursor:pointer;display:inline-block;padding:8px 16px;font-size:26px;color:var(--gold)}
+.yb{color:var(--gold);font-weight:800;text-shadow:-1px -1px 0 #8f0b22,1px -1px 0 #8f0b22,-1px 1px 0 #8f0b22,1px 1px 0 #8f0b22}
+.arrow{display:inline-block;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+.pop{position:absolute;pointer-events:none;color:var(--pink);font-size:28px;animation:up 1.4s ease-out forwards}
+@keyframes up{from{opacity:1;transform:translate(-50%,0) scale(.6)}to{opacity:0;transform:translate(calc(-50% + var(--dx)),-160px) scale(1.4)}}
+.petal{position:absolute;top:-20px;width:10px;height:10px;border-radius:60% 0;background:var(--pink);opacity:.7;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+
+/* counter */
+.clock{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cell{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px 6px;text-align:center}
+.cell b{display:block;font-family:"Black Han Sans";font-weight:400;font-size:clamp(34px,10vw,46px);color:var(--red);font-variant-numeric:tabular-nums;line-height:1.1}
+.cell span{font-size:19px;color:var(--soft)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.fact{background:var(--red);color:#fff;border-radius:18px;padding:18px;font-size:20px}
+.fact b{font-family:"Black Han Sans";font-weight:400;font-size:clamp(30px,8vw,38px);color:var(--gold);display:block;line-height:1.15;white-space:nowrap}
+.fact:nth-child(2n){background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.fact:nth-child(2n) b{color:var(--red)}
+.note{font-size:17px;color:var(--soft);margin-top:10px}
+
+/* game */
+.game{position:relative;height:340px;border-radius:24px;overflow:hidden;background:linear-gradient(#ffd6de,#ff9fb4);touch-action:manipulation;user-select:none;-webkit-user-select:none}
+:root[data-theme=dark] .game{background:linear-gradient(#5a1424,#2c0a14)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .game{background:linear-gradient(#5a1424,#2c0a14)}}
+.hud{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;z-index:2;gap:8px}
+.score{background:#fff;color:var(--red);border-radius:99px;padding:4px 16px;font-family:"Black Han Sans";font-size:26px;font-variant-numeric:tabular-nums}
+.bar{flex:1;height:10px;background:rgba(255,255,255,.5);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--red);transition:width .2s}
+.h{position:absolute;bottom:-60px;width:60px;height:60px;border:0;background:none;padding:0;color:var(--red);font-size:54px;line-height:60px;animation:rise linear forwards}
+.h.gold{color:var(--gold);text-shadow:0 0 8px #fff}
+@keyframes rise{to{transform:translateY(-420px)}}
+.h.got{animation:none;transform:scale(1.8);opacity:0;transition:all .25s}
+.start{position:absolute;inset:0;margin:auto;width:260px;height:72px;border-radius:99px;border:0;background:var(--red);color:#fff;font-family:"Black Han Sans";font-size:26px;z-index:3;box-shadow:0 6px 0 var(--red2)}
+.start:active{transform:translateY(4px);box-shadow:0 2px 0 var(--red2)}
+
+/* coupons */
+.coupons{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.cp{perspective:800px;height:180px;border:0;background:none;padding:0}
+.cp .in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.cp.open .in{transform:rotateY(180deg)}
+.cp .f,.cp .b{position:absolute;inset:0;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:center}
+.cp .f{background:repeating-linear-gradient(45deg,var(--red),var(--red) 12px,#d42a45 12px,#d42a45 24px);color:#fff;font-family:"Black Han Sans";font-size:28px}
+.cp .f small{font-family:"Gowun Dodum";font-size:17px;opacity:.9;margin-top:4px}
+.cp .b{background:var(--gold);color:#3a1a00;transform:rotateY(180deg);border:3px dashed var(--red)}
+.cp .b strong{font-family:"Black Han Sans";font-weight:400;font-size:25px;line-height:1.2}
+.cp .b span{font-size:17px;margin-top:6px}
+.cp.used .f{filter:grayscale(1);opacity:.4}
+.cp.locked .f{filter:grayscale(.7);opacity:.75}
+.hint{margin-top:12px;color:var(--soft);font-size:24px}
+.skip{background:none;border:0;color:var(--soft);text-decoration:underline;padding:10px 0;font-size:18px}
+
+/* finale */
+.finale{background:var(--red);color:#fff;text-align:center}
+.finale h2{color:#fff !important}
+.big{min-height:72px;padding:0 32px;border-radius:99px;border:0;background:var(--gold);color:var(--red2);font-family:"Black Han Sans";font-size:clamp(24px,6.5vw,30px);box-shadow:0 6px 0 #c99a00}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 #c99a00}
+.letter{max-width:520px;margin:26px auto 0;background:#fff;color:#2a0a12;border-radius:20px;padding:24px;font-size:27px;line-height:1.55;text-align:left;display:none}
+.letter.show{display:block;animation:in .6s ease-out}
+.letter .sign{text-align:right;margin-top:12px;color:var(--red)}
+@keyframes in{from{opacity:0;transform:translateY(20px)}}
+.conf{position:fixed;top:-12px;width:9px;height:14px;z-index:50;pointer-events:none;animation:drop linear forwards}
+@keyframes drop{to{transform:translateY(105vh) rotate(720deg)}}
+@media(max-width:600px){.clock{grid-template-columns:repeat(2,minmax(0,1fr))}.facts{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.petal{display:none}.duck,.cp .in{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero band" id="hero">
+  <div class="wrap">
+    <span class="kick">1985. 11. 24 → 2026. 11. 24</span>
+    <h1>결혼 <span class="amp">41</span>주년</h1>
+    <div class="names">김선정 ♥ 이규열</div>
+    <div class="stage" id="stage" role="button" tabindex="0" aria-label="원앙을 눌러 보세요">
+      <svg viewBox="0 70 520 220" aria-hidden="true">
+        <defs>
+          <g id="duck">
+            <ellipse cx="0" cy="96" rx="92" ry="14" fill="#000" opacity=".18"/>
+            <rect x="-70" y="74" width="140" height="22" rx="8" fill="#7a3d12"/>
+            <rect x="-70" y="74" width="140" height="6" rx="3" fill="#a85a22"/>
+            <path d="M-78 30 C-80 -20 -20 -32 30 -14 C70 0 78 40 60 64 C40 82 -60 84 -78 30Z" fill="var(--body)"/>
+            <path d="M-60 34 C-40 6 10 2 40 22 C20 50 -30 60 -60 34Z" fill="var(--wing)"/>
+            <path d="M-50 36 C-30 20 0 18 24 28" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>
+            <path d="M-78 30 C-96 22 -100 8 -92 -4 C-84 14 -76 18 -66 16Z" fill="var(--wing)"/>
+            <circle cx="40" cy="-34" r="34" fill="var(--head)"/>
+            <path d="M14 -56 C30 -78 64 -72 70 -50 C56 -60 34 -58 14 -56Z" fill="var(--crest)"/>
+            <path d="M70 -36 L102 -28 L70 -20Z" fill="#ff7a1a"/>
+            <circle cx="54" cy="-40" r="9" fill="#fff"/>
+            <circle cx="56" cy="-40" r="5" fill="#1a0a05"/>
+            <circle cx="58" cy="-42" r="1.8" fill="#fff"/>
+            <ellipse cx="44" cy="-18" rx="9" ry="5" fill="var(--pink)" opacity=".8"/>
+          </g>
+        </defs>
+        <g class="duck dl" style="transform-origin:150px 200px">
+          <use href="#duck" transform="translate(150 160)" style="--body:#1f6f8b;--wing:#ffd23f;--head:#2e8b57;--crest:#c4122f"/>
+        </g>
+        <g class="duck dr" style="transform-origin:370px 200px">
+          <g transform="translate(370 160) scale(-1 1)">
+            <use href="#duck" style="--body:#e05a7a;--wing:#fff3c4;--head:#f08da6;--crest:#8f0b22"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="tap hand" id="tapMsg">원앙을 콕 눌러 보세요!</div>
+  </div>
+</header>
+
+<section class="band">
+  <div class="wrap">
+    <h2 id="timeTitle">함께한 시간, 지금도 째깍째깍</h2>
+    <p class="lead">1985년 11월 24일부터 오늘 이 순간까지</p>
+    <div class="clock">
+      <div class="cell"><b id="cD">0</b><span>일</span></div>
+      <div class="cell"><b id="cH">0</b><span>시간</span></div>
+      <div class="cell"><b id="cM">0</b><span>분</span></div>
+      <div class="cell"><b id="cS">0</b><span>초</span></div>
+    </div>
+    <div class="facts">
+      <div class="fact"><b id="fMeal">0끼</b>같이 먹은 밥 (하루 세 끼로 치면)</div>
+      <div class="fact"><b id="fSeason">0번</b>함께 맞은 봄여름가을겨울</div>
+      <div class="fact"><b id="fYeobo">0번</b>"여보~" 부른 횟수 (하루 10번 기준)</div>
+      <div class="fact"><b>41번째</b>오늘, 11월 24일</div>
+    </div>
+    <p class="note">재미로 계산한 숫자예요. 실제로는 훨씬 더 많을지도요.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>사랑 하트 41개 모으기</h2>
+    <p class="lead">올라오는 하트를 톡톡 눌러서 41년치 하트를 모아 주세요. <b class="yb">노란 하트</b>는 한 번에 <b class="yb">10개</b>짜리!</p>
+    <div class="game" id="game">
+      <div class="hud"><span class="score" id="score">0 / 41</span><span class="bar"><i id="bar"></i></span></div>
+      <button class="start" id="startBtn">게임 시작</button>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2 id="couponTitle">41주년 효도 쿠폰</h2>
+    <p class="lead">하트를 다 모으면 쿠폰이 열려요. 6장 중에 딱 1장만 고를 수 있어요. 신중하게!</p>
+    <div class="coupons" id="coupons"></div>
+    <p class="hint hand" id="hint">아직 잠겨 있어요. 위에서 하트를 모아 주세요!</p>
+    <button class="skip" id="skip">게임이 어려우면 그냥 열기</button>
+  </div>
+</section>
+
+<section class="band finale">
+  <div class="wrap">
+    <h2>마지막으로 한 가지</h2>
+    <p>아래 버튼을 누르면 축하 편지가 나와요</p>
+    <button class="big" id="celebrate">축하해요! 꾹 누르기</button>
+    <div class="letter hand" id="letter">
+      엄마, 아빠.<br>
+      1985년 11월 24일에 시작된 두 분의 이야기가 벌써 41년이 됐어요.<br>
+      두 분이 함께 만들어 준 집에서 받은 사랑, 이제는 저희가 조금씩 갚아 갈게요.<br>
+      앞으로도 지금처럼 티격태격, 알콩달콩 오래오래 건강하게 지내 주세요.<br>
+      결혼 41주년 정말 축하드려요. 사랑해요!
+      <div class="sign">딸, 아들 내외와<br>손주들 올림</div>
+    </div>
+  </div>
+</section>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function go(el){
+  const se=document.scrollingElement||document.documentElement;
+  const top=el.getBoundingClientRect().top+(window.scrollY||se.scrollTop)-12;
+  try{window.scrollTo({top,behavior:reduce?'auto':'smooth'})}catch(e){window.scrollTo(0,top)}
+  setTimeout(()=>{if(Math.abs(el.getBoundingClientRect().top-12)>40){se.scrollTop=top;document.body.scrollTop=top;try{el.scrollIntoView(true)}catch(e){}}},700);
+}
+
+/* 꽃잎 */
+const hero=$('hero');
+if(!reduce){for(let i=0;i<14;i++){const p=document.createElement('i');p.className='petal';p.style.left=Math.random()*100+'%';p.style.animationDuration=(6+Math.random()*6)+'s';p.style.animationDelay=(-Math.random()*10)+'s';p.style.transform='scale('+(0.6+Math.random())+')';hero.appendChild(p)}}
+
+/* 원앙 */
+const stage=$('stage'),msgs=['뽀뽀~','41년째 신혼!','여보 사랑해','우리 원앙 부부','오늘도 고마워','또 눌러도 돼요'];
+let taps=0;
+function poke(e){
+  stage.classList.add('close');
+  setTimeout(()=>stage.classList.remove('close'),900);
+  const r=stage.getBoundingClientRect();
+  for(let i=0;i<6;i++){const h=document.createElement('span');h.className='pop';h.textContent='♥';h.style.left='50%';h.style.top='40%';h.style.setProperty('--dx',(Math.random()*160-80)+'px');h.style.animationDelay=(i*60)+'ms';stage.appendChild(h);setTimeout(()=>h.remove(),1700)}
+  taps++;$('tapMsg').innerHTML='스크롤을 아래로 내려보세요<br><span class="arrow">▼</span>';
+}
+stage.addEventListener('click',poke);
+$('tapMsg').addEventListener('click',()=>{if(!taps){poke();return}go($('timeTitle'))});
+stage.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();poke()}});
+
+/* 시간 카운터 (한국시간 1985-11-24 00:00) */
+const start=Date.UTC(1985,10,23,15,0,0);
+const fmt=n=>n.toLocaleString('ko-KR');
+function tick(){
+  const ms=Date.now()-start,s=Math.floor(ms/1000),d=Math.floor(s/86400);
+  $('cD').textContent=fmt(d);$('cH').textContent=Math.floor(s/3600)%24;
+  $('cM').textContent=Math.floor(s/60)%60;$('cS').textContent=s%60;
+  $('fMeal').textContent=fmt(d*3)+'끼';$('fSeason').textContent=fmt(Math.floor(d/365.25*4))+'번';
+  $('fYeobo').textContent=fmt(d*10)+'번';
+}
+tick();setInterval(tick,1000);
+
+/* 쿠폰 */
+const C0=[['손녀랑 영상통화권','보고 싶을 때 언제든!'],['영화관람권 2매','두 분이 같이 보세요'],['맛집 데이트권','계산은 자식이 합니다']];
+const C=[...C0,...C0];
+$('coupons').innerHTML=C.map((c,i)=>`<button class="cp locked" data-i="${i}" aria-label="쿠폰 ${i+1}"><div class="in"><div class="f">쿠폰 ${i+1}<small>눌러서 뒤집기</small></div><div class="b"><strong>${c[0]}</strong><span>${c[1]}</span><span>유효기간: 평생</span></div></div></button>`).join('');
+let unlocked=false,picked=null;
+function unlock(){if(unlocked)return;unlocked=true;document.querySelectorAll('.cp').forEach(c=>c.classList.remove('locked'));$('hint').textContent='쿠폰이 열렸어요! 딱 1장만 골라 뒤집어 보세요';$('skip').style.display='none';confetti(60)}
+$('coupons').addEventListener('click',e=>{
+  const c=e.target.closest('.cp');if(!c)return;
+  if(!unlocked){$('hint').textContent='하트 41개를 먼저 모아 주세요!';return}
+  if(picked){if(c!==picked)$('hint').textContent='쿠폰은 딱 1장만 고를 수 있어요!';return}
+  picked=c;c.classList.add('open');
+  document.querySelectorAll('.cp').forEach(x=>{if(x!==c)x.classList.add('used')});
+  $('hint').textContent='당첨! 이 쿠폰은 꼭 쓰셔야 해요';confetti(50);
+});
+$('skip').addEventListener('click',unlock);
+
+/* 하트 게임 */
+const game=$('game'),GOAL=41;let score=0,timer=null;
+function setScore(n){score=Math.min(GOAL,n);$('score').textContent=score+' / '+GOAL;$('bar').style.width=(score/GOAL*100)+'%'}
+function spawn(){
+  const h=document.createElement('button');const gold=Math.random()<.15;
+  h.className='h'+(gold?' gold':'');h.textContent='♥';h.setAttribute('aria-label','하트');
+  h.style.left=(5+Math.random()*80)+'%';h.style.animationDuration=(2.6+Math.random()*1.8)+'s';
+  h.addEventListener('pointerdown',ev=>{ev.preventDefault();if(h.classList.contains('got'))return;h.classList.add('got');setScore(score+(gold?10:1));setTimeout(()=>h.remove(),260);if(score>=GOAL)win()});
+  h.addEventListener('animationend',()=>h.remove());
+  game.appendChild(h);
+}
+function win(){
+  clearInterval(timer);timer=null;
+  game.querySelectorAll('.h').forEach(h=>h.remove());
+  const b=$('startBtn');b.textContent='41개 완료! 쿠폰 열림';b.style.display='block';
+  unlock();
+}
+$('startBtn').addEventListener('click',()=>{
+  if(score>=GOAL){go($('couponTitle'));return}
+  $('startBtn').style.display='none';
+  spawn();timer=setInterval(spawn,520);
+});
+
+/* 마지막 축하 */
+const colors=['#c4122f','#ff8fab','#ffd23f','#1f6f8b','#2e8b57','#ffffff'];
+function confetti(n){
+  if(reduce)return;
+  for(let i=0;i<n;i++){const c=document.createElement('i');c.className='conf';c.style.left=Math.random()*100+'vw';c.style.background=colors[i%colors.length];c.style.animationDuration=(2+Math.random()*2.5)+'s';c.style.animationDelay=(Math.random()*.6)+'s';c.style.borderRadius=Math.random()<.5?'50%':'2px';document.body.appendChild(c);setTimeout(()=>c.remove(),5200)}
+}
+$('celebrate').addEventListener('click',()=>{
+  confetti(120);$('letter').classList.add('show');$('celebrate').textContent='한 번 더 축하!';
+});
+}
+</script>
+</body>
+</html>
